@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:25:33 by sgabsi            #+#    #+#             */
-/*   Updated: 2023/11/23 10:51:51 by sgabsi           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:22:02 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_formats(va_list args, const char format)
 	else if (format == 's')
 		print_length += ft_printstr(va_arg(args, char *));
 	else if (format == 'p')
-		print_length += ft_print_ptr(va_arg(args, unsigned long long));
+		print_length += ft_print_ptr(va_arg(args, void *));
 	else if (format == 'd' || format == 'i')
 		print_length += ft_printnbr(va_arg(args, int));
 	else if (format == 'u')
@@ -63,23 +63,4 @@ int	ft_printf(const char *format, ...)
 	}
 	va_end(args);
 	return (print_length);
-}
-
-#include <stdio.h>
-#include <limits.h>
-
-int	main(void)
-{
-	char *str = "Bonjour";
-	int entier = 42;
-	char c = '!';
-	int res, res2;
-
-	res = ft_printf("--%s--\n");
-	res2 = printf("--%s--\n");
-
-	if (res == res2)
-		printf("OK");
-	else
-		printf("PAS OK");
 }

@@ -6,7 +6,7 @@
 #    By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:28:59 by sgabsi            #+#    #+#              #
-#    Updated: 2023/11/22 13:59:51 by sgabsi           ###   ########.fr        #
+#    Updated: 2023/12/13 16:24:02 by sgabsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,8 @@ LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 # Output
-NAME		=	ftprintf.a
-NAMESO		=	ftprintf.so
+NAME		=	libftprintf.a
+NAMESO		=	libftprintf.so
 
 # Compiler
 CC			=	cc
@@ -58,9 +58,9 @@ pre_comp :
 	@echo "$(YELLOW)********* Début de la compilation de la librairie libftprintf *********$(NC)"
 	
 $(NAME): $(OBJS) $(LIBFT)
-	@ar rcs $@ $^
 	@cp libft/libft.a .
 	@mv libft.a $(NAME)
+	@ar rcs $@ $^
 	@echo "$(GREEN)********* Compilation terminée avec succès! *********$(NC)"
 	@echo "$(GREEN)********* La librairie $(NAME) a été créée. *********$(NC)"
 
@@ -69,17 +69,17 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@$(CC) $(CFLAGS) $(OPTIONS) -c $< -o $@
 
 $(LIBFT):
-	@make -C $(LIBFT_DIR)
+	@make -sC $(LIBFT_DIR)
 
 clean:
 	@rm -rf $(OBJDIR)
-	@make -C $(LIBFT_DIR) clean
+	@make -sC $(LIBFT_DIR) clean
 	@echo "$(YELLOW)********* Suppression des fichiers objets *********$(NC)"
 
 fclean: clean
 	@rm -f $(NAME)
 	@/bin/rm -f $(NAMESO) a.out
-	@make -C $(LIBFT_DIR) fclean
+	@make -sC $(LIBFT_DIR) fclean
 	@echo "$(RED)********* Suppression de la librairie $(NAME) *********$(NC)"
 
 re: fclean all

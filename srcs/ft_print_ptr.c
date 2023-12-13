@@ -6,7 +6,7 @@
 /*   By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:14:01 by sgabsi            #+#    #+#             */
-/*   Updated: 2023/11/22 16:22:49 by sgabsi           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:19:54 by sgabsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,22 @@ void	ft_put_ptr(uintptr_t num)
 	}
 }
 
-int	ft_print_ptr(unsigned long long ptr)
+int	ft_print_ptr(void *ptr)
 {
-	int	print_length;
+	int					print_length;
+	unsigned long long	mem;
 
+	if (ptr == NULL)
+		return (ft_printstr("(nil)"));
+	mem = (unsigned long long)ptr;
 	print_length = 0;
 	print_length += write(1, "0x", 2);
-	if (ptr == 0)
+	if (mem == 0)
 		print_length += write(1, "0", 1);
 	else
 	{
-		ft_put_ptr(ptr);
-		print_length += ft_ptr_len(ptr);
+		ft_put_ptr(mem);
+		print_length += ft_ptr_len(mem);
 	}
 	return (print_length);
 }
