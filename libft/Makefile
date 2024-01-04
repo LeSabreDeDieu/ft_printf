@@ -6,7 +6,7 @@
 #    By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 13:44:09 by sgabsi            #+#    #+#              #
-#    Updated: 2024/01/04 13:25:25 by sgabsi           ###   ########.fr        #
+#    Updated: 2024/01/04 14:06:01 by sgabsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,11 +82,6 @@ $(NAME): $(OBJ)
 	@ar rcs $(NAME) $(OBJ)
 	@printf "\r% 200s"
 	@echo "\r$(GREEN)********* Compilation terminée avec succès! *********$(NC)"
-	@echo "$(GREEN)********* La librairie $(NAME) a été créée. *********$(NC)"
-	
-bonus: $(OBJ) $(BOBJ)
-	@ar rcs $(NAME) $(OBJ) $(BOBJ)
-	@echo "$(GREEN)**** Compilation des bonus terminée avec succès! ****$(NC)"
 	@echo "$(GREEN)********* La librairie $(NAME) a été créée. *********$(NC)"
 
 $(OBJDIR)/%.o: %.c

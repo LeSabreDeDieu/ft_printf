@@ -6,7 +6,7 @@
 #    By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/21 16:28:59 by sgabsi            #+#    #+#              #
-#    Updated: 2023/12/13 16:24:02 by sgabsi           ###   ########.fr        #
+#    Updated: 2024/01/04 14:08:05 by sgabsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,10 @@ CC			=	cc
 CFLAGS		=	-Wall -Werror -Wextra
 OPTIONS		=	-I $(INCDIR)
 
+#Progress bar
+COUNT		=	1
+TOTAL_FILES	=	$(shell find ./srcs -type f -name "*.c" | wc -l)
+
 # Colors
 GREEN		=	\033[0;32m
 YELLOW		=	\033[0;33m
@@ -57,16 +61,24 @@ all: pre_comp $(NAME)
 pre_comp :
 	@echo "$(YELLOW)********* Début de la compilation de la librairie libftprintf *********$(NC)"
 	
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(LIBFT) $(OBJS)
 	@cp libft/libft.a .
 	@mv libft.a $(NAME)
 	@ar rcs $@ $^
-	@echo "$(GREEN)********* Compilation terminée avec succès! *********$(NC)"
+	@printf "\r% 200s"
+	@echo "\r$(GREEN)********* Compilation terminée avec succès! *********$(NC)"
 	@echo "$(GREEN)********* La librairie $(NAME) a été créée. *********$(NC)"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(OPTIONS) -c $< -o $@
+	@printf "\rCompiling files: [%-50s] %3d%% (%d/%d) %s % 10s" \
+		"$(shell printf '=%.0s' $$(seq 1 $$(($(COUNT) * 50 / $(TOTAL_FILES)))))" \
+		$$(($(COUNT) * 100 / $(TOTAL_FILES))) \
+		$(COUNT) \
+		$(TOTAL_FILES) \
+		$<
+	$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 
 $(LIBFT):
 	@make -sC $(LIBFT_DIR)
