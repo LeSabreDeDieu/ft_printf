@@ -16,7 +16,7 @@
 
 # Directories
 SRCDIR		=	./
-INCDIR		=	./
+INCDIR		=	../includes
 OBJDIR		=	objs
 
 # Sources
