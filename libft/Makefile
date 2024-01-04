@@ -6,7 +6,7 @@
 #    By: sgabsi <sgabsi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 13:44:09 by sgabsi            #+#    #+#              #
-#    Updated: 2023/11/21 17:02:55 by sgabsi           ###   ########.fr        #
+#    Updated: 2024/01/04 13:25:25 by sgabsi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 
 # Directories
 SRCDIR		=	./
-INCDIR		=	../includes
+INCDIR		=	./
 OBJDIR		=	objs
 
 # Sources
@@ -52,8 +52,12 @@ NAMESO		=	libft.so
 
 # Compiler
 CC			=	cc
-CFLAGS		=	-Wall -Werror -Wextra
+CFLAGS		=	-Wall -Werror -Wextra -O3 -ffreestanding -nostdlib
 OPTIONS		=	-I $(INCDIR)
+
+#Progress bar
+COUNT		=	1
+TOTAL_FILES	=	$(shell find . -type f -name "*.c" | wc -l)
 
 # Colors
 GREEN		=	\033[0;32m
@@ -76,7 +80,8 @@ pre_comp :
 
 $(NAME): $(OBJ)
 	@ar rcs $(NAME) $(OBJ)
-	@echo "$(GREEN)********* Compilation terminée avec succès! *********$(NC)"
+	@printf "\r% 200s"
+	@echo "\r$(GREEN)********* Compilation terminée avec succès! *********$(NC)"
 	@echo "$(GREEN)********* La librairie $(NAME) a été créée. *********$(NC)"
 	
 bonus: $(OBJ) $(BOBJ)
@@ -87,6 +92,13 @@ bonus: $(OBJ) $(BOBJ)
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(OPTIONS) -o $@ -c $<
+	@printf "\rCompiling files: [%-50s] %3d%% (%d/%d) %s % 10s" \
+		"$(shell printf '=%.0s' $$(seq 1 $$(($(COUNT) * 50 / $(TOTAL_FILES)))))" \
+		$$(($(COUNT) * 100 / $(TOTAL_FILES))) \
+		$(COUNT) \
+		$(TOTAL_FILES) \
+		$<
+	$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 
 clean:
 	@/bin/rm -rf $(OBJDIR)
