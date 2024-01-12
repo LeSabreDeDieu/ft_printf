@@ -48,4 +48,4 @@ gcc -o mon_programme mes_sources.c -L. -lftprintf
 ```
 
 ## Auteur
-[sgabsi]
+sgabsi
