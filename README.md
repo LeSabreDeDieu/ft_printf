@@ -1,4 +1,6 @@
-https://github.com/ayogun/42-project-badges/blob/main/covers/cover-ft_printf.png
+<p align="center">
+	<img src="https://github.com/ayogun/42-project-badges/blob/main/covers/cover-ft_printf.png" alt="libft_cover" />
+</p>
 
 <p align="center">
 	<b><i> Because ft_putnbr() and ft_putstr() aren’t enough </i></b>
